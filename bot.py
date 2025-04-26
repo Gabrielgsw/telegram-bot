@@ -1,30 +1,25 @@
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
-from dotenv import load_dotenv
-import os
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-
-TOKEN = 'SEU_TOKEN_AQUI'
-
+#início
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('Salve, fã da FURIA! 🔥 Me pergunte algo!')
+    await update.message.reply_text('Salve furioso!  Manda a boa! 🔥')
+    
+#repetir msg
+async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_message = update.message.text
+    await update.message.reply_text(f"Msg: {user_message}")
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('Comandos disponíveis:\n/start - Iniciar\n/quiz - Jogar quiz\n/stats - Ver estatísticas')
-
-async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('Não entendi 😅. Tente outro comando!')
-
-
-load_dotenv()
-TOKEN = os.getenv("TELEGRAM_TOKEN")
-app = ApplicationBuilder().token(TOKEN).build()
-
-# Handlers (ações)
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("help", help_command))
-app.add_handler(MessageHandler(filters.COMMAND, unknown))  # Para comandos desconhecidos
-
-# Rodar
-print("Bot rodando...")
-app.run_polling()
+#main
+def main():
+    TOKEN = "8173060128:AAFBsQFo013x-AfwpMAulIubLWCRHBJitTo"
+    
+    application = Application.builder().token(TOKEN).build
+    
+    application.add_handler(CommandHandler("start", start)) # chama a função start 
+    application.add_handler(MessageHandler(Filters.text & ~Filters.command, echo)) 
+    
+    application.run_polling()
+    
+    if __name__ == '__main__':
+        main()
