@@ -75,7 +75,7 @@ async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 #main
 def main():
-    TOKEN = "8173060128:AAFBsQFo013x-AfwpMAulIubLWCRHBJitTo"
+    TOKEN = " " #inserir o token do bot
     
     application = Application.builder().token(TOKEN).build()
     
